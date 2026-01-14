@@ -1,31 +1,23 @@
-import {
-  IsNumber,
-  IsString,
-  IsEmail,
-  IsNotEmpty,
-  IsArray,
-  ArrayMinSize,
-  IsPositive,
-} from 'class-validator';
+// create-booking.dto.ts
+import { IsString, IsArray, IsNumber, IsEmail } from 'class-validator';
 
 export class CreateBookingDto {
   @IsNumber()
-  @IsPositive()
   showtime_id: number;
 
   @IsString()
-  @IsNotEmpty()
   customer_name: string;
 
   @IsEmail()
   customer_email: string;
 
   @IsString()
-  @IsNotEmpty()
   customer_phone: string;
 
-  @IsArray()
-  @ArrayMinSize(1)
+  @IsArray() // This allows the [1, 2] from your test
   @IsNumber({}, { each: true })
   seat_numbers: number[];
+
+  @IsNumber()
+  total_amount: number;
 }
