@@ -5,6 +5,7 @@ import {
   Body,
   Param,
   ParseIntPipe,
+  Delete,
 } from '@nestjs/common';
 import { BookingsService } from './bookings.service';
 import { CreateBookingDto } from './dto/create-booking.dto';
@@ -31,5 +32,14 @@ export class BookingsController {
   @Get('showtime/:showtimeId')
   findByShowtime(@Param('showtimeId', ParseIntPipe) showtimeId: number) {
     return this.bookingsService.findByShowtime(showtimeId);
+  }
+
+  @Delete()
+  removeAll() {
+    return this.bookingsService.removeAll();
+  }
+  @Delete(':id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.bookingsService.remove(id);
   }
 }

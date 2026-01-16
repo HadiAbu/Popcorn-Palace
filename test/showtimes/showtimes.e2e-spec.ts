@@ -4,13 +4,10 @@ import * as request from 'supertest';
 describe('Showtimes (E2E)', () => {
   let ctx: TestContext;
   let movieId: number;
+  let showtimeId: number;
 
   beforeAll(async () => {
     ctx = await createTestApp();
-
-    await request(ctx.httpServer).delete('/showtimes');
-    await request(ctx.httpServer).delete('/bookings');
-    await request(ctx.httpServer).delete('/movies');
 
     // Setup prerequisites
     const movieRes = await request(ctx.httpServer).post('/movies').send({
@@ -24,13 +21,13 @@ describe('Showtimes (E2E)', () => {
   });
 
   afterAll(async () => {
-    // await request(ctx.httpServer).delete('/showtimes');
+    await request(ctx.httpServer).delete(`/movies/${movieId}`);
+    await request(ctx.httpServer).delete(`/showtimes/${showtimeId}`);
+
     await ctx.app.close();
   });
 
   describe('POST /showtimes', () => {
-    let showtimeId: number;
-
     it('should create a showtime', async () => {
       const res = await request(ctx.httpServer)
         .post('/showtimes')
@@ -41,7 +38,6 @@ describe('Showtimes (E2E)', () => {
           end_time: '2025-12-01T21:00:00Z',
           price: 15,
           total_seats: 2,
-          // bookings: [],
         })
         .expect(201);
 

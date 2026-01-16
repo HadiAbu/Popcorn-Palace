@@ -4,12 +4,11 @@ import * as request from 'supertest';
 describe('Bookings (E2E)', () => {
   let ctx: TestContext;
   let showtimeId: number;
+  let movieId: number;
+  let bookingId: number;
 
   beforeAll(async () => {
     ctx = await createTestApp();
-    await request(ctx.httpServer).delete('/showtimes');
-    await request(ctx.httpServer).delete('/bookings');
-    await request(ctx.httpServer).delete('/movies');
 
     // Create movie and showtime
     const movie = await request(ctx.httpServer).post('/movies').send({
@@ -19,6 +18,7 @@ describe('Bookings (E2E)', () => {
       rating: 6.9,
       release_year: 2023,
     });
+    movieId = movie.body.id;
 
     const showtimeRes = await request(ctx.httpServer).post('/showtimes').send({
       movie_id: movie.body.id,
@@ -32,6 +32,10 @@ describe('Bookings (E2E)', () => {
   });
 
   afterAll(async () => {
+    await request(ctx.httpServer).delete(`/movies/${movieId}`);
+    await request(ctx.httpServer).delete(`/showtimes/${showtimeId}`);
+    await request(ctx.httpServer).delete(`/bookings/${bookingId}`);
+
     await ctx.app.close();
   });
 
@@ -47,6 +51,7 @@ describe('Bookings (E2E)', () => {
           seat_numbers: [1, 2],
           total_amount: 24,
         });
+      bookingId = res.body.id;
 
       expect(res.body).toHaveProperty('id');
       expect(res.body.customer_name).toBe('Alice');

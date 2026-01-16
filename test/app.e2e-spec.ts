@@ -22,7 +22,6 @@ describe('AppController (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
 
-    // ADD THIS LINE TO THE TEST
     app.setGlobalPrefix('api');
 
     await app.init();

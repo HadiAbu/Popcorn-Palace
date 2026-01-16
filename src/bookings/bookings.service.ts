@@ -100,6 +100,23 @@ export class BookingsService {
       relations: ['showtime', 'showtime.movie'],
     });
   }
+  async remove(id: number): Promise<void> {
+    const booking = await this.findOne(id);
+    await this.bookingRepository.remove(booking);
+  }
+
+  async removeAll(): Promise<{ message: string }> {
+    try {
+      await this.bookingRepository
+        .createQueryBuilder()
+        .delete()
+        .from('bookings') // Explicitly naming the table
+        .execute();
+    } catch (error) {
+      throw new BadRequestException('Failed to remove all bookings');
+    }
+    return { message: 'All bookings have been removed' };
+  }
 
   async findOne(id: number): Promise<Booking> {
     const booking = await this.bookingRepository.findOne({
