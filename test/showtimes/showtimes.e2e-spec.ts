@@ -8,6 +8,10 @@ describe('Showtimes (E2E)', () => {
   beforeAll(async () => {
     ctx = await createTestApp();
 
+    await request(ctx.httpServer).delete('/showtimes');
+    await request(ctx.httpServer).delete('/bookings');
+    await request(ctx.httpServer).delete('/movies');
+
     // Setup prerequisites
     const movieRes = await request(ctx.httpServer).post('/movies').send({
       title: 'Oppenheimer',
@@ -20,13 +24,14 @@ describe('Showtimes (E2E)', () => {
   });
 
   afterAll(async () => {
+    // await request(ctx.httpServer).delete('/showtimes');
     await ctx.app.close();
   });
 
   describe('POST /showtimes', () => {
     let showtimeId: number;
 
-    it.skip('should create a showtime', async () => {
+    it('should create a showtime', async () => {
       const res = await request(ctx.httpServer)
         .post('/showtimes')
         .send({
@@ -35,6 +40,8 @@ describe('Showtimes (E2E)', () => {
           start_time: '2025-12-01T18:00:00Z',
           end_time: '2025-12-01T21:00:00Z',
           price: 15,
+          total_seats: 2,
+          // bookings: [],
         })
         .expect(201);
 
@@ -42,7 +49,16 @@ describe('Showtimes (E2E)', () => {
       showtimeId = res.body.id;
     });
 
-    it.skip('should reject invalid time range', async () => {
+    it('should update showtime', async () => {
+      const res = await request(ctx.httpServer)
+        .patch(`/showtimes/${showtimeId}`)
+        .send({
+          price: 18,
+        });
+      expect(res.body.price).toBe(18);
+    });
+
+    it('should reject invalid time range', async () => {
       await request(ctx.httpServer)
         .post('/showtimes')
         .send({
@@ -57,35 +73,15 @@ describe('Showtimes (E2E)', () => {
   });
 
   describe('GET /showtimes', () => {
-    it.skip('should return list of showtimes', async () => {
+    it('should return list of showtimes', async () => {
       const res = await request(ctx.httpServer).get('/showtimes').expect(200);
       expect(Array.isArray(res.body)).toBe(true);
     });
   });
 
-  describe.skip('PATCH /showtimes/:id', () => {
-    let showtimeId: number;
-
-    beforeAll(async () => {
-      const res = await request(ctx.httpServer).post('/showtimes').send({
-        movie_id: movieId,
-        theater: 'IMAX 3',
-        start_time: '2025-12-02T14:00:00Z',
-        end_time: '2025-12-02T17:00:00Z',
-        price: 12,
-      });
-      showtimeId = res.body.id;
-    });
-
-    it.skip('should update showtime', async () => {
-      const res = await request(ctx.httpServer)
-        .patch(`/showtimes/${showtimeId}`)
-        .send({
-          price: 18,
-        })
-        .expect(200);
-
-      expect(res.body.price).toBe(18);
+  describe('Delete /showtimes', () => {
+    it('should delete the showtimes', async () => {
+      await request(ctx.httpServer).delete('/showtimes').expect(200);
     });
   });
 });

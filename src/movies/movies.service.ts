@@ -47,4 +47,15 @@ export class MoviesService {
     const movie = await this.findOne(id);
     await this.movieRepository.remove(movie);
   }
+  async removeAll(): Promise<void> {
+    try {
+      await this.movieRepository
+        .createQueryBuilder()
+        .delete()
+        .from('movies') // Explicitly naming the table
+        .execute();
+    } catch (error) {
+      throw new BadRequestException('Failed to remove all movies');
+    }
+  }
 }

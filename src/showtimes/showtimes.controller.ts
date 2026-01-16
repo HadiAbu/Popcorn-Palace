@@ -43,4 +43,9 @@ export class ShowtimesController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.showtimesService.remove(id);
   }
+
+  @Delete()
+  removeAll() {
+    return this.showtimesService.removeAll();
+  }
 }

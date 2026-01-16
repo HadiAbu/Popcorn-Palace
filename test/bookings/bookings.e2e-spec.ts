@@ -7,6 +7,9 @@ describe('Bookings (E2E)', () => {
 
   beforeAll(async () => {
     ctx = await createTestApp();
+    await request(ctx.httpServer).delete('/showtimes');
+    await request(ctx.httpServer).delete('/bookings');
+    await request(ctx.httpServer).delete('/movies');
 
     // Create movie and showtime
     const movie = await request(ctx.httpServer).post('/movies').send({
@@ -22,9 +25,9 @@ describe('Bookings (E2E)', () => {
       theater: 'Cinema 5',
       start_time: '2025-12-10T20:00:00Z',
       end_time: '2025-12-10T22:00:00Z',
+      total_seats: 2,
       price: 12,
     });
-
     showtimeId = showtimeRes.body.id;
   });
 
@@ -43,12 +46,7 @@ describe('Bookings (E2E)', () => {
           customer_phone: '555-1234',
           seat_numbers: [1, 2],
           total_amount: 24,
-        })
-        .expect(201);
-
-      if (res.status === 400) {
-        console.log('VALIDATION ERROR:', JSON.stringify(res.body, null, 2));
-      }
+        });
 
       expect(res.body).toHaveProperty('id');
       expect(res.body.customer_name).toBe('Alice');
@@ -60,7 +58,6 @@ describe('Bookings (E2E)', () => {
         .send({
           showtime_id: showtimeId,
           customer_name: 'Bob',
-          // missing required fields
         })
         .expect(400);
     });

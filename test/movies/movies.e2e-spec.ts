@@ -6,6 +6,9 @@ describe('Movies (E2E)', () => {
 
   beforeAll(async () => {
     ctx = await createTestApp();
+    await request(ctx.httpServer).delete('/showtimes');
+    await request(ctx.httpServer).delete('/bookings');
+    await request(ctx.httpServer).delete('/movies');
   });
 
   afterAll(async () => {
@@ -65,6 +68,19 @@ describe('Movies (E2E)', () => {
         .expect(200);
 
       expect(res.body.title).toBe('Test Movie');
+    });
+  });
+
+  // Usage in your test suite
+  describe('Movies Cleanup', () => {
+    it('should have an empty list after deletion', async () => {
+      const resDelete = await request(ctx.httpServer).delete('/movies');
+      // .expect(200);
+
+      expect(resDelete.status).toBe(200);
+
+      const res = await request(ctx.httpServer).get('/movies').expect(200);
+      expect(res.body.length).toBe(0);
     });
   });
 });

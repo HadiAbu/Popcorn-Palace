@@ -43,4 +43,8 @@ export class MoviesController {
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.moviesService.remove(id);
   }
+  @Delete()
+  removeAll() {
+    return this.moviesService.removeAll();
+  }
 }

@@ -22,7 +22,6 @@ export class BookingsService {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
-
     try {
       // Get showtime with lock to prevent concurrent bookings
       const showtime = await this.showtimesService.findOne(
@@ -88,6 +87,7 @@ export class BookingsService {
 
       return savedBooking;
     } catch (error) {
+      console.error('Error creating booking:', error);
       await queryRunner.rollbackTransaction();
       throw error;
     } finally {

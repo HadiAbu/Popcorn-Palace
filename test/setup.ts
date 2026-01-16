@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { AppModule } from '../src/app.module';
-import * as request from 'supertest';
+// import * as request from 'supertest';
 
 export interface TestContext {
   app: INestApplication;
@@ -19,6 +19,7 @@ export async function createTestApp(): Promise<TestContext> {
       whitelist: true,
       forbidNonWhitelisted: true,
       transform: true,
+      transformOptions: { enableImplicitConversion: true },
     }),
   );
 
