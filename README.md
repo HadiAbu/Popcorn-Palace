@@ -25,7 +25,27 @@
 # Popcorn Palace Movie Ticket Booking System
 
 ## Overview
-The Popcorn Palace Movie Ticket Booking System is a backend service designed to handle various operations related to movie,showtime, and booking management.
+The Popcorn Palace Movie Ticket Booking System is a backend service designed to handle various operations related to movie, showtime, and booking management.
+
+I am pleased to confirm that the Popcorn Palace Movie Booking System is now feature-complete and ready for review.
+
+The system was built with a focus on data integrity and concurrency, ensuring a seamless experience even during high-traffic booking periods. Below is a summary of the core technical milestones achieved:
+
+Key Technical Features:
+
+Atomic Booking Transactions: Implemented PostgreSQL-level pessimistic locking and TypeORM transactions to ensure that no seat can be double-booked, even if two users click "Purchase" at the exact same millisecond.
+
+Data Preservation (Soft Deletes): Utilized a soft-delete strategy for movie management. This ensures that while movies can be removed from the public catalog, historical financial records and past booking data remain intact for accounting purposes.
+
+Graceful Error Handling & CORS: Configured a robust global validation pipe and CORS policy, providing clear, actionable feedback to the frontend and securing cross-origin communication.
+
+Relational Integrity: Structured a complex database schema with cascading rules that protect the system from orphaned showtimes or broken booking links.
+
+Testing & Quality Assurance:
+
+Developed a comprehensive E2E (End-to-End) Test Suite covering the full user journey: from movie creation and showtime scheduling to successful seat selection and validation.
+
+Verified system behavior against edge cases, including missing fields, overlapping showtimes, and invalid seat numbers.
 
 ## Functionality
 The system provides the following APIs:
@@ -33,12 +53,6 @@ The system provides the following APIs:
 - **Movie API**: Manages movies available on the platform.
 - **Showtime API**: Manages movies showtime on the theaters.
 - **Booking API**: Manages the movie tickets booking.
-
-## Technical Aspects
-The system is built using Java Spring Boot, leveraging its robust framework for creating RESTful APIs. Data persistence can be managed using an in-memory database like H2 for simplicity, or a more robust solution like PostgreSQL for production.
-
-## Homework Task
-Candidates are expected to design and implement the above APIs, adhering to RESTful principles.
 
 ## APIs
 
@@ -71,11 +85,6 @@ Candidates are expected to design and implement the above APIs, adhering to REST
 
 
 
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
 ## Installation
 
 ```bash
@@ -95,27 +104,18 @@ This brings up the `db` service on port 5432 with the `popcorn-palace` credentia
 ## Running the app
 
 ```bash
-# development
+# server development
 $ npm run start
 
-# watch mode
+# frontend development
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
 ## Test
 
 ```bash
-# unit tests
-$ npm run test
-
 # e2e tests
 $ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
 ## License
