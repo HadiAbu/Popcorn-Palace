@@ -106,15 +106,12 @@ export class BookingsService {
   }
 
   async removeAll(): Promise<{ message: string }> {
-    try {
-      await this.bookingRepository
-        .createQueryBuilder()
-        .delete()
-        .from('bookings') // Explicitly naming the table
-        .execute();
-    } catch (error) {
-      throw new BadRequestException('Failed to remove all bookings');
-    }
+    await this.bookingRepository
+      .createQueryBuilder()
+      .delete()
+      .from('bookings') // Explicitly naming the table
+      .execute();
+
     return { message: 'All bookings have been removed' };
   }
 

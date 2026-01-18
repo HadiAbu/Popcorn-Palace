@@ -79,13 +79,12 @@ describe('Movies (E2E)', () => {
   });
 
   // it('delete with ID', async () => {
-  //   const createRes = await request(ctx.httpServer).delete(
+  //   const deleteRes = await request(ctx.httpServer).delete(
   //     `/movies/${movieIds[0]}`,
   //   );
-  //   expect(createRes.body.status).toBe(200);
+  //   expect(deleteRes.body.status).toBe(200);
   // });
 
-  // Usage in your test suite
   describe('Movies Cleanup', () => {
     it.skip('should have an empty list after deletion', async () => {
       const resDelete = await request(ctx.httpServer).delete('/movies');

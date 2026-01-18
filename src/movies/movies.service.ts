@@ -17,12 +17,8 @@ export class MoviesService {
   ) {}
 
   async create(createMovieDto: CreateMovieDto): Promise<Movie> {
-    try {
-      const movie = this.movieRepository.create(createMovieDto);
-      return await this.movieRepository.save(movie);
-    } catch (error) {
-      throw new BadRequestException('Failed to create movie');
-    }
+    const movie = this.movieRepository.create(createMovieDto);
+    return await this.movieRepository.save(movie);
   }
 
   async findAll(): Promise<Movie[]> {
@@ -48,14 +44,10 @@ export class MoviesService {
     await this.movieRepository.remove(movie);
   }
   async removeAll(): Promise<void> {
-    try {
-      await this.movieRepository
-        .createQueryBuilder()
-        .delete()
-        .from('movies') // Explicitly naming the table
-        .execute();
-    } catch (error) {
-      throw new BadRequestException('Failed to remove all movies');
-    }
+    await this.movieRepository
+      .createQueryBuilder()
+      .delete()
+      .from('movies')
+      .execute();
   }
 }
