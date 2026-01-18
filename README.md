@@ -7,8 +7,6 @@
 ## Overview
 The Popcorn Palace Movie Ticket Booking System is a backend service designed to handle various operations related to movie, showtime, and booking management.
 
-I am pleased to confirm that the Popcorn Palace Movie Booking System is now feature-complete and ready for review.
-
 The system was built with a focus on data integrity and concurrency, ensuring a seamless experience even during high-traffic booking periods. Below is a summary of the core technical milestones achieved:
 
 Key Technical Features:
@@ -84,11 +82,11 @@ This brings up the `db` service on port 5432 with the `popcorn-palace` credentia
 ## Running the app
 
 ```bash
-# server development
+# server
 $ npm run start
 
 # frontend development
-$ npm run start:dev
+$ npm run start:frontend
 ```
 
 ## Test
