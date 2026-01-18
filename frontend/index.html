@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Popcorn Palace Demo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Popcorn Palace Management System</h1>
+      <nav>
+        <button class="nav-button active" data-tab="booking">Booking</button>
+        <button class="nav-button" data-tab="movies">Manage Movies</button>
+        <button class="nav-button" data-tab="showtimes">
+          Manage Showtimes
+        </button>
+        <button class="nav-button" data-tab="bookings">Manage Bookings</button>
+      </nav>
+    </header>
+    <main>
+      <!-- Alerts Section -->
+      <section id="alerts">
+        <div id="alert-box"></div>
+      </section>
+
+      <!-- Booking Tab -->
+      <section id="booking-tab" class="tab-content active">
+        <h2>Book Your Tickets</h2>
+
+        <div class="form-group">
+          <label for="movie-dropdown">Select a Movie:</label>
+          <select id="movie-dropdown">
+            <option value="">-- Select a Movie --</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="showtime-dropdown">Select a Showtime:</label>
+          <select id="showtime-dropdown">
+            <option value="">-- Select a Showtime --</option>
+          </select>
+        </div>
+
+        <div id="seat-selection">
+          <h3>Select Your Seats</h3>
+          <div id="seat-map"></div>
+        </div>
+
+        <button id="book-button" class="btn btn-primary">Book Now</button>
+      </section>
+
+      <!-- Movies Management Tab -->
+      <section id="movies-tab" class="tab-content">
+        <h2>Manage Movies</h2>
+
+        <div class="list-container">
+          <h3>Movies List</h3>
+          <div id="movies-list"></div>
+        </div>
+        <div class="form-container">
+          <h3>Create New Movie</h3>
+          <form id="create-movie-form">
+            <div class="form-group">
+              <label for="movie-title">Title:</label>
+              <input
+                type="text"
+                id="movie-title"
+                minlength="1"
+                maxlength="255"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="movie-genre">Genre:</label>
+              <input type="text" id="movie-genre" maxlength="100" required />
+            </div>
+            <div class="form-group">
+              <label for="movie-duration">Duration (minutes, 1-600):</label>
+              <input
+                type="number"
+                id="movie-duration"
+                min="1"
+                max="600"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="movie-rating">Rating (0-10):</label>
+              <input
+                type="number"
+                id="movie-rating"
+                min="0"
+                max="10"
+                step="0.1"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="movie-release-year">Release Year (1900-2030):</label>
+              <input
+                type="number"
+                id="movie-release-year"
+                min="1900"
+                max="2030"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-success">Create Movie</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Showtimes Management Tab -->
+      <section id="showtimes-tab" class="tab-content">
+        <h2>Manage Showtimes</h2>
+
+        <div class="list-container">
+          <h3>Showtimes List</h3>
+          <div id="showtimes-list"></div>
+        </div>
+
+        <div class="form-container">
+          <h3>Create New Showtime</h3>
+          <form id="create-showtime-form">
+            <div class="form-group">
+              <label for="showtime-movie">Movie:</label>
+              <select id="showtime-movie" required>
+                <option value="">-- Select a Movie --</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="showtime-theater">Theater:</label>
+              <input
+                type="text"
+                id="showtime-theater"
+                maxlength="100"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="showtime-start">Start Time:</label>
+              <input type="datetime-local" id="showtime-start" required />
+            </div>
+            <div class="form-group">
+              <label for="showtime-end">End Time:</label>
+              <input type="datetime-local" id="showtime-end" required />
+            </div>
+            <div class="form-group">
+              <label for="showtime-price">Price:</label>
+              <input
+                type="number"
+                id="showtime-price"
+                min="0"
+                step="0.01"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="showtime-total-seats">Total Seats (minimum 1):</label>
+              <input
+                type="number"
+                id="showtime-total-seats"
+                min="1"
+                value="100"
+                required
+              />
+            </div>
+            <button type="submit" class="btn btn-success">
+              Create Showtime
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Bookings Management Tab -->
+      <section id="bookings-tab" class="tab-content">
+        <h2>Manage Bookings</h2>
+
+        <div class="list-container">
+          <h3>All Bookings</h3>
+          <div id="bookings-list"></div>
+        </div>
+      </section>
+      <section id="alerts">
+        <div id="alert-box-2"></div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

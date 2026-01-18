@@ -17,8 +17,12 @@ export class MoviesService {
   ) {}
 
   async create(createMovieDto: CreateMovieDto): Promise<Movie> {
-    const movie = this.movieRepository.create(createMovieDto);
-    return await this.movieRepository.save(movie);
+    try {
+      const movie = this.movieRepository.create(createMovieDto);
+      return await this.movieRepository.save(movie);
+    } catch (error) {
+      throw new BadRequestException('Failed to create movie, missing fields');
+    }
   }
 
   async findAll(): Promise<Movie[]> {

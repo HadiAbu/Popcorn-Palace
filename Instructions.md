@@ -15,7 +15,7 @@ Ensure you have the following installed on your system:
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/HadiAbu/Popcorn-Palace
    ```
 
 2. Navigate to the project directory:
@@ -55,10 +55,18 @@ docker-compose up
 
 ### Development Mode
 
-To start the application in development mode with hot-reloading:
+To start the application in development mode:
+
+To start the backend:
 
 ```bash
-npm run start:dev
+npm run start
+```
+
+To start the frontend:
+
+```bash
+npm run start:frontend
 ```
 
 ### Production Mode
@@ -79,14 +87,6 @@ npm run start:debug
 ```
 
 ## Testing
-
-### Unit Tests
-
-Run unit tests:
-
-```bash
-npm test
-```
 
 ### End-to-End Tests
 
