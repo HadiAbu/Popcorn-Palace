@@ -13,8 +13,6 @@ Key Technical Features:
 
 Atomic Booking Transactions: Implemented PostgreSQL-level pessimistic locking and TypeORM transactions to ensure that no seat can be double-booked, even if two users click "Purchase" at the exact same millisecond.
 
-Data Preservation (Soft Deletes): Utilized a soft-delete strategy for movie management. This ensures that while movies can be removed from the public catalog, historical financial records and past booking data remain intact for accounting purposes.
-
 Graceful Error Handling & CORS: Configured a robust global validation pipe and CORS policy, providing clear, actionable feedback to the frontend and securing cross-origin communication.
 
 Relational Integrity: Structured a complex database schema with cascading rules that protect the system from orphaned showtimes or broken booking links.
